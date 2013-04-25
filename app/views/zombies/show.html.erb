@@ -10,6 +10,14 @@
   <%= @zombie.graveyard %>
 </p>
 
+<p>
+	<b>Previous Tweets:</b>
+	<% @zombie.tweets.all.each do |tweet| %>
+		<tr>
+			<td><%= link_to tweet.status, tweet %></td>
+		</tr>
+	<% end %>
+</p>
 
 <%= link_to 'Edit', edit_zombie_path(@zombie) %> |
 <%= link_to 'Back', zombies_path %>

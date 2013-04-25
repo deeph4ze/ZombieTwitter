@@ -11,12 +11,15 @@
 
 <% @tweets.each do |tweet| %>
   <tr>
-    <td><%= tweet.status %></td>
-    <td><%= tweet.zombie_id %></td>
+    <td><%= link_to tweet.status, tweet %></td>
+    <td><%= link_to tweet.zombie.name, tweet.zombie %></td>
     <td><%= link_to 'Show', tweet %></td>
     <td><%= link_to 'Edit', edit_tweet_path(tweet) %></td>
-    <td><%= link_to 'Destroy', tweet, confirm: 'Are you sure?', method: :delete %></td>
+    <td><%= link_to 'Delete', tweet, confirm: 'Are you sure?', :method => :delete %></td>
   </tr>
+<% end %>
+<% if @tweets.size == 0 %>
+    <em>No tweets found</em>
 <% end %>
 </table>
 

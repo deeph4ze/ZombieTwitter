@@ -1,4 +1,8 @@
 class TweetsController < ApplicationController
+
+  before_filter :get_tweet, :only => [:edit, :update, :destroy]
+  before_filter :check_auth, :only => [:edit, :update, :destroy]
+
   # GET /tweets
   # GET /tweets.json
   def index
@@ -10,6 +14,15 @@ class TweetsController < ApplicationController
     end
   end
 
+  def get_tweet
+    @tweet = Tweet.find(params[:id])
+  end
+
+  def check_auth
+    if session[:zombie_id] != @tweet.zombie_id
+      redirect_to(tweets_path, :notice => "Sorry, you can't edit others' tweets.")
+    end
+  end
   # GET /tweets/1
   # GET /tweets/1.json
   def show
@@ -34,7 +47,7 @@ class TweetsController < ApplicationController
 
   # GET /tweets/1/edit
   def edit
-    @tweet = Tweet.find(params[:id])
+    
   end
 
   # POST /tweets
@@ -56,7 +69,6 @@ class TweetsController < ApplicationController
   # PUT /tweets/1
   # PUT /tweets/1.json
   def update
-    @tweet = Tweet.find(params[:id])
 
     respond_to do |format|
       if @tweet.update_attributes(params[:tweet])
@@ -72,7 +84,6 @@ class TweetsController < ApplicationController
   # DELETE /tweets/1
   # DELETE /tweets/1.json
   def destroy
-    @tweet = Tweet.find(params[:id])
     @tweet.destroy
 
     respond_to do |format|
