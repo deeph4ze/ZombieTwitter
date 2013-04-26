@@ -10,12 +10,17 @@
   <%= link_to image_tag('/assets/twatter.jpg'), all_tweets_path %>
 	<!--img src ="/assets/twatter.jpg"-->
 <p> Which Zombie Are You? </p>
-<%= select("session", "zombie_id", Zombie.all.collect {|z| [z.name]}, {:prompt => 'Select Zombie'}) %>
+<% #form_tag({:controller => "zombies", :action => "set_session_zombie"}, :method => "put") %>
+<% form_for
+<% options_from_collection_for_select(Zombie.all, :id, :name) %>
+<%= collection_select(:session, :zombie_id, Zombie.all, :id, :name) %>
 <% if flash[:notice] %>
 	<div id="notice"><%= flash[:notice] %></div>
 <% end %>
 
 <%= yield %>
+
+<%= puts session[:zombie_id] %>
 
 </body>
 </html>

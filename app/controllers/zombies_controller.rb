@@ -10,6 +10,11 @@ class ZombiesController < ApplicationController
     end
   end
 
+  def current_zombie
+    @_current_zombie ||= session[:current_zombie] &&
+      Zombie.find_by_id(session[:current_zombie])
+  end
+
   def set_session_zombie
     session[:zombie_id] = Zombie.find(params[:id]) if params[:zombie_id]
   end
