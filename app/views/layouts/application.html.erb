@@ -7,7 +7,8 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-	<img src ="/assets/twatter.jpg">
+  <%= link_to image_tag('/assets/twatter.jpg'), all_tweets_path %>
+	<!--img src ="/assets/twatter.jpg"-->
 <p> Which Zombie Are You? </p>
 <%= select("session", "zombie_id", Zombie.all.collect {|z| [z.name]}, {:prompt => 'Select Zombie'}) %>
 <% if flash[:notice] %>

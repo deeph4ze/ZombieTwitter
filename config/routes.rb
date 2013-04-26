@@ -5,6 +5,8 @@ ZombieTwitter::Application.routes.draw do
   resources :zombies
 
   resources :tweets
+  match 'new_tweet' => "Tweets#new"
+  match 'all' => "Tweets#index", :as => "all_tweets"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

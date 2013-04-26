@@ -10,6 +10,10 @@ class ZombiesController < ApplicationController
     end
   end
 
+  def set_session_zombie
+    session[:zombie_id] = Zombie.find(params[:id]) if params[:zombie_id]
+  end
+
   # GET /zombies/1
   # GET /zombies/1.json
   def show
